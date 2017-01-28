@@ -1,4 +1,5 @@
 from django.utils import timezone
+import datetime
 from .models import Post
 from django.shortcuts import render, get_object_or_404
 from .forms import PostForm
@@ -18,7 +19,7 @@ def post_new(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = timezone.now()
+            post.published_date = datetime.datetime.now()
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
@@ -31,7 +32,7 @@ def post_edit(request, pk):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = timezone.now()
+            post.published_date = datetime.datetime.now()
             post.save()
             return redirect('post_detail', pk=post.pk)
     else:
